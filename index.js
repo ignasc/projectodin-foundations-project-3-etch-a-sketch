@@ -19,6 +19,6 @@ singleSquareGrid.setAttribute("class", "singleGridSquare");
 
 
 for(let i = 0; i < maxGridSize ** 2; i++){
-    let newElement = singleSquareGrid.cloneNode();//if ID is used, modify it before appending the child to parent!
+    let newElement = singleSquareGrid.cloneNode();//if any unique attributes are used (like ID), modify them before appending the child to parent!
     mainGrid.appendChild(newElement);
 };
