@@ -2,8 +2,6 @@ const drawingBoardSize = 100;
 let numOfPixelsPerSide = 8;
 const gridSquareBorderSize = 1;
 let gridPixelSize = getGridPixelSize(drawingBoardSize, numOfPixelsPerSide, gridSquareBorderSize);
-let drawingBoardPadding = getDrawingBoardPadding(drawingBoardSize, numOfPixelsPerSide, gridPixelSize, gridSquareBorderSize);
-
 const mainApp = document.querySelector("#root");
 
 const mainGrid = document.createElement("div");
@@ -40,13 +38,6 @@ function gridMouseOut(e){
 
 function getGridPixelSize(drawingBoardSize, numOfPixelsPerSide, gridSquareBorderSize){
     return parseInt((drawingBoardSize / numOfPixelsPerSide) - gridSquareBorderSize * 2);
-};
-
-function getDrawingBoardPadding(drawingBoardSize, numOfPixelsPerSide, gridSquareSize, gridSquareBorderSize){
-    let totalUsedSpace = numOfPixelsPerSide * (gridSquareSize + gridSquareBorderSize * 2);
-    let remainingUnusedSpace = drawingBoardSize - totalUsedSpace;
-    console.log("Board size: " + drawingBoardSize + "\nPixel size: " + gridSquareSize + "\nTotal used space: " + totalUsedSpace + "\nRemaining space: " + remainingUnusedSpace);
-    return remainingUnusedSpace / 2;
 };
 
 createNewDrawingBoard();
