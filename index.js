@@ -1,4 +1,4 @@
-const drawingBoardSize = 100;
+const drawingBoardSize = 500;
 let drawingBoardBorder = 1;
 let drawingBoardPadding = 0;
 let numOfPixelsPerSide = 8; //starting default pixel size
@@ -50,17 +50,13 @@ function createNewDrawingBoard(){
     for(let i = 0; i < numOfPixelsPerSide ** 2; i++){
         let newElement = singleSquareGrid.cloneNode();//if any unique attributes are used (like ID), modify them before appending the child to parent!
         newElement.addEventListener("mouseover",(e)=>{gridMouseOver(e)});
-        newElement.addEventListener("mouseout",(e)=>{gridMouseOut(e)});
         newElement.setAttribute("id","grid-pixel-" + (i + 1));
         mainGrid.appendChild(newElement);
     };
 };
 
 function gridMouseOver(e){
-    e.target.style.backgroundColor = "grey";
-};
-function gridMouseOut(e){
-    e.target.style.backgroundColor = "white";
+    e.target.style.backgroundColor = "darkgrey";
 };
 
 function getGridPixelSize(drawingBoardSize, numOfPixelsPerSide){
