@@ -1,7 +1,9 @@
 const drawingBoardSize = 100;
+let drawingBoardBorder = 1;
+let drawingBoardPadding = 0;
 let numOfPixelsPerSide = 8; //starting default pixel size
 const gridSquareBorderSize = 1;
-let gridPixelSize = getGridPixelSize(drawingBoardSize, numOfPixelsPerSide, gridSquareBorderSize);
+let gridPixelSize = getGridPixelSize(drawingBoardSize, numOfPixelsPerSide);
 const mainApp = document.querySelector("#root");
 
 const btnSetNumOfPixels = document.createElement("button");
@@ -35,12 +37,15 @@ function createNewDrawingBoard(){
     };
 
     /*set new board dimensions*/
-    gridPixelSize = getGridPixelSize(drawingBoardSize, numOfPixelsPerSide, gridSquareBorderSize);
+    gridPixelSize = getGridPixelSize(drawingBoardSize, numOfPixelsPerSide);
 
     singleSquareGrid.style.width = gridPixelSize + "px";
     singleSquareGrid.style.height = gridPixelSize + "px";
     singleSquareGrid.style.border = gridSquareBorderSize + "px solid grey"
-    singleSquareGrid.setAttribute("class", "singleGridSquare");
+    singleSquareGrid.setAttribute("class", "grid-pixel");
+    singleSquareGrid.style.boxSizing = "border-box";
+
+    mainGrid.style.padding = drawingBoardPadding + "px";
     
     for(let i = 0; i < numOfPixelsPerSide ** 2; i++){
         let newElement = singleSquareGrid.cloneNode();//if any unique attributes are used (like ID), modify them before appending the child to parent!
@@ -58,8 +63,14 @@ function gridMouseOut(e){
     e.target.style.backgroundColor = "white";
 };
 
-function getGridPixelSize(drawingBoardSize, numOfPixelsPerSide, gridSquareBorderSize){
-    return parseInt((drawingBoardSize / numOfPixelsPerSide) - gridSquareBorderSize * 2);
+function getGridPixelSize(drawingBoardSize, numOfPixelsPerSide){
+    /*NOTE: box-sizing = "border box", which means margins, border and padding are all included in total width and height*/
+    let pixelSize = parseInt((drawingBoardSize / numOfPixelsPerSide)*10)/10;
+    let spaceForPadding = (drawingBoardSize - numOfPixelsPerSide * pixelSize) / 2;
+    if(spaceForPadding > 1){
+        drawingBoardPadding = parseInt(spaceForPadding*10)/10;
+    };
+    return pixelSize;
 };
 
 createNewDrawingBoard();

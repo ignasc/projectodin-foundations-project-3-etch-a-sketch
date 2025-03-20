@@ -1,7 +1,10 @@
 #main-grid {
-    border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.grid-pixel {
+    background-color: rgb(235, 235, 235);
 }
