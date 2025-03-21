@@ -49,14 +49,59 @@ function createNewDrawingBoard(){
     
     for(let i = 0; i < numOfPixelsPerSide ** 2; i++){
         let newElement = singleSquareGrid.cloneNode();//if any unique attributes are used (like ID), modify them before appending the child to parent!
-        newElement.addEventListener("mouseover",(e)=>{gridMouseOver(e)});
+        newElement.addEventListener("click",(e)=>{gridMouseOver(e)});
         newElement.setAttribute("id","grid-pixel-" + (i + 1));
         mainGrid.appendChild(newElement);
     };
 };
 
 function gridMouseOver(e){
-    e.target.style.backgroundColor = "darkgrey";
+    /*If no color set, sets a random color, otherwise darkens/saturates existing color*/
+    if(e.target.style.backgroundColor){
+        console.log(e.target.style.backgroundColor);
+        let redColor = e.target.getAttribute("redColor");
+        let greenColor = e.target.getAttribute("greenColor");
+        let blueColor = e.target.getAttribute("blueColor");
+        let colorChange = e.target.getAttribute("colorChange");
+        let highestRgbComponent = e.target.getAttribute("highestRgbComponent");
+        switch (highestRgbComponent) {
+            case "redColor":
+                redColor *= 1.1;
+                if(redColor > 255){redColor=255};
+                break;
+            case "greenColor":
+                greenColor *= 1.1;
+                if(greenColor > 255){greenColor=255};
+                break;
+            case "blueColor":
+                blueColor *= 1.1;
+                if(blueColor > 255){blueColor=255};
+                break;
+        }
+        e.target.style.backgroundColor = "rgb(" + redColor + "," + greenColor + "," + blueColor + ")";
+
+    } else {
+        let redColor = parseInt(Math.random()*255);
+        let greenColor = parseInt(Math.random()*255);
+        let blueColor = parseInt(Math.random()*255);
+        e.target.style.backgroundColor = "rgb(" + redColor + "," + greenColor + "," + blueColor + ")";
+        e.target.setAttribute("redColor", redColor);
+        e.target.setAttribute("greenColor", greenColor);
+        e.target.setAttribute("blueColor", blueColor);
+        e.target.setAttribute("colorChange", Math.random() <0.5 ? "darken" : "saturate");
+
+        let highestRgbComponent;
+
+        if(redColor > greenColor && redColor > blueColor){
+            highestRgbComponent = "redColor";
+        }
+        else if(greenColor > blueColor){
+            highestRgbComponent = "greenColor";
+        } else {
+            highestRgbComponent = "blueColor";
+        };
+        e.target.setAttribute("highestRgbComponent", highestRgbComponent);
+    };
 };
 
 function getGridPixelSize(drawingBoardSize, numOfPixelsPerSide){
