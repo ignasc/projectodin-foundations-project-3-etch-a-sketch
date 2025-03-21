@@ -64,21 +64,25 @@ function gridMouseOver(e){
         let blueColor = e.target.getAttribute("blueColor");
         let colorChange = e.target.getAttribute("colorChange");
         let highestRgbComponent = e.target.getAttribute("highestRgbComponent");
+        let multiplier = 1.01;
         switch (highestRgbComponent) {
             case "redColor":
-                redColor *= 1.1;
+                redColor *= multiplier;
                 if(redColor > 255){redColor=255};
                 break;
             case "greenColor":
-                greenColor *= 1.1;
+                greenColor *= multiplier;
                 if(greenColor > 255){greenColor=255};
                 break;
             case "blueColor":
-                blueColor *= 1.1;
+                blueColor *= multiplier;
                 if(blueColor > 255){blueColor=255};
                 break;
         }
         e.target.style.backgroundColor = "rgb(" + redColor + "," + greenColor + "," + blueColor + ")";
+        e.target.setAttribute("redColor", redColor);
+        e.target.setAttribute("greenColor", greenColor);
+        e.target.setAttribute("blueColor", blueColor);
 
     } else {
         let redColor = parseInt(Math.random()*255);
