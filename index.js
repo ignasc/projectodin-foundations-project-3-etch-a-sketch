@@ -49,13 +49,13 @@ function createNewDrawingBoard(){
     
     for(let i = 0; i < numOfPixelsPerSide ** 2; i++){
         let newElement = singleSquareGrid.cloneNode();//if any unique attributes are used (like ID), modify them before appending the child to parent!
-        newElement.addEventListener("mouseover",(e)=>{mouseClick(e)});
+        newElement.addEventListener("mouseover",(e)=>{mouseOver(e)});
         newElement.setAttribute("id","grid-pixel-" + (i + 1));
         mainGrid.appendChild(newElement);
     };
 };
 
-function mouseClick(e){
+function mouseOver(e){
     /*If no color set, sets a random color, otherwise darkens/saturates existing color*/
     let redColor;
     let greenColor;
